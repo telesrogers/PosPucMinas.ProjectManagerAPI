@@ -1,6 +1,6 @@
-import { IProject } from 'src/domain/interfaces/project.interface';
-import { ITask } from 'src/domain/interfaces/task.interface';
-import { IUser } from 'src/domain/interfaces/user.interface';
+import type { IProject } from 'src/domain/interfaces/project.interface';
+import type { ITask } from 'src/domain/interfaces/task.interface';
+import type { IUser } from 'src/domain/interfaces/user.interface';
 import {
   Column,
   Entity,
