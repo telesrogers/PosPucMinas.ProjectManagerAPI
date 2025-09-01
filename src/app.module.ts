@@ -15,4 +15,4 @@ import { GetAllProjectsService } from './–flat/domain/use-cases/projects/get-a
 })
 export class AppModule {}
 
-//TODO: Remove AppService & AppController
+//TODO: Remover AppService & AppController
