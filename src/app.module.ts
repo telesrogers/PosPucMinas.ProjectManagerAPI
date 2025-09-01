@@ -10,4 +10,4 @@ import { ControllersModule } from './gateways/controllers/controllers.module';
 })
 export class AppModule {}
 
-//TODO: Remove AppService & AppController
+//TODO: Remover AppService & AppController
