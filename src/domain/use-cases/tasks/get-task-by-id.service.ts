@@ -16,7 +16,10 @@ export class GetTaskByIdService implements BaseUseCase {
     if (!userData) {
       throw new Error('Usuário não encontrado');
     }
-    const task = await this.tasksRepository.findById(payload.taskId);
+    const task = await this.tasksRepository.findById(
+      payload.userId,
+      payload.taskId,
+    );
     if (!task) {
       throw new Error('Erro ao listar tarefas');
     }

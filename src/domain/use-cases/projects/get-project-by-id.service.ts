@@ -18,7 +18,11 @@ export class GetProjectByIdService {
     if (!userData) {
       throw new Error('Usuário não encontrado');
     }
-    const project = await this.projectsRepository.findById(payload.projectId);
+    const project = await this.projectsRepository.findById(
+      payload.userId,
+      payload.projectId,
+    );
+
     if (!project) {
       throw new Error('Erro ao recuperar projetos');
     }

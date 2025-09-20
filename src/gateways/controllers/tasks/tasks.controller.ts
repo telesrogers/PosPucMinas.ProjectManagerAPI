@@ -2,16 +2,19 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   NotFoundException,
   Param,
   Post,
+  Req,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateTaskService } from 'src/domain/use-cases/tasks/create-task.service';
 import { GetAllTasksService } from 'src/domain/use-cases/tasks/get-all-tasks.service';
 import { GetTaskByIdService } from 'src/domain/use-cases/tasks/get-task-by-id.service';
 import { CreateTaskDto } from './dtos/create-task.dto';
-const userId = 1;
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
 
 @Controller('tasks')
 export class TasksController {
@@ -19,12 +22,29 @@ export class TasksController {
     private readonly getAllTasksUseCase: GetAllTasksService,
     private readonly getTaskByIdUseCase: GetTaskByIdService,
     private readonly createTaskUseCase: CreateTaskService,
+    @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
   @Get()
-  async findAll() {
+  async findAll(@Req() request) {
     try {
-      return await this.getAllTasksUseCase.execute({ userId });
+      const loggedUser = request.user;
+      const cacheKey = `user-${loggedUser.sub}/all-tasks`;
+
+      const cachedData = await this.cacheService.get<{ name: string }>(
+        cacheKey,
+      );
+
+      if (cachedData) {
+        console.log(`Getting tasks from cache!`);
+        return cachedData;
+      }
+
+      console.log(`Cache empty. Getting tasks from database!`);
+      const data = await this.getAllTasksUseCase.execute(loggedUser.sub);
+      await this.cacheService.set(cacheKey, data);
+
+      return data;
     } catch (error) {
       if (error instanceof Error) {
         throw new NotFoundException(error.message);
@@ -35,10 +55,12 @@ export class TasksController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Req() request, @Param('id') id: number) {
     try {
+      const loggedUser = request.user;
+
       return await this.getTaskByIdUseCase.execute({
-        userId,
+        userId: loggedUser.sub,
         taskId: id,
       });
     } catch (error) {
@@ -51,10 +73,12 @@ export class TasksController {
   }
 
   @Post()
-  async create(@Body() createTaskDto: CreateTaskDto) {
+  async create(@Req() request, @Body() createTaskDto: CreateTaskDto) {
     try {
+      const loggedUser = request.user;
+
       return await this.createTaskUseCase.execute({
-        userId,
+        userId: loggedUser.sub,
         task: createTaskDto,
       });
     } catch (error) {

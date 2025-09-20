@@ -19,8 +19,13 @@ export class UpdateTaskService implements BaseUseCase {
     if (!userData) {
       throw new Error('Usuário não encontrado');
     }
-    await this.tasksRepository.updateById(payload.task);
-    const task = await this.tasksRepository.findById(payload.task.id);
+
+    await this.tasksRepository.updateById(payload.userId, payload.task);
+
+    const task = await this.tasksRepository.findById(
+      payload.userId,
+      payload.task.id,
+    );
     if (!task) {
       throw new Error('Tarefa não encontrado');
     }

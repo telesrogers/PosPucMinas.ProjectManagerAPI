@@ -18,7 +18,11 @@ export class UsersRepositoryService
   }
 
   findById(id: number): Promise<IUser | null> {
-    return this.findOneBy({ id });
+    return this.findOneByOrFail({ id });
+  }
+
+  findByEmail(email: string): Promise<IUser | null> {
+    return this.findOneByOrFail({ email });
   }
 
   add(payload: DeepPartial<IUser>): Promise<IUser> {

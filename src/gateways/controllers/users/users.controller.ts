@@ -2,15 +2,20 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   NotFoundException,
   Param,
   Post,
+  Req,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateUserService } from 'src/domain/use-cases/users/create-user.service';
 import { GetUserByIdService } from 'src/domain/use-cases/users/get-user-by-id.service';
 import { GetAllUsersService } from 'src/domain/use-cases/users/get-all-users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { Public } from '../../guards/auth-guard.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
 
 @Controller('users')
 export class UsersController {
@@ -18,12 +23,29 @@ export class UsersController {
     private readonly getAllUsersUseCase: GetAllUsersService,
     private readonly getUserUseCase: GetUserByIdService,
     private readonly createUserUseCase: CreateUserService,
+    @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
   @Get()
-  async findAll() {
+  async findAll(@Req() request) {
     try {
-      return await this.getAllUsersUseCase.execute();
+      const loggedUser = request.user;
+      const cacheKey = `user-${loggedUser.sub}/all-users`;
+
+      const cachedData = await this.cacheService.get<{ name: string }>(
+        cacheKey,
+      );
+
+      if (cachedData) {
+        console.log(`Getting users from cache!`);
+        return cachedData;
+      }
+
+      console.log(`Cache empty. Getting users from database!`);
+      const data = await this.getAllUsersUseCase.execute();
+      await this.cacheService.set(cacheKey, data);
+
+      return data;
     } catch (error) {
       if (error instanceof Error) {
         throw new NotFoundException(error.message);
@@ -47,6 +69,7 @@ export class UsersController {
   }
 
   @Post()
+  @Public()
   async create(@Body() createUserDto: CreateUserDto) {
     try {
       return await this.createUserUseCase.execute({ ...createUserDto });

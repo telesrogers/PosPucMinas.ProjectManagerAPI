@@ -23,6 +23,7 @@ export class CreateTaskService implements BaseUseCase {
       throw new Error('Usuário não encontrado');
     }
     const projectData = await this.projcetsRepository.findById(
+      userData.id,
       payload.task.projectId,
     );
     if (!projectData) {
