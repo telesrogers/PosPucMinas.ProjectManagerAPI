@@ -28,3 +28,30 @@ Este projeto será subdividido em etapas, onde cada etapa será representada por
 
 **Hello World**
 ![Hello World](docs/Atividade01/Evidencia01_HelloWorld.png)
+
+**Create User**
+![CreateUser](docs/Atividade02/Evidencia01_CreateUser.png)
+
+**Get User**
+![GetUser](docs/Atividade02/Evidencia02_GetUser.png)
+
+**Get All Users**
+![GetUsers](docs/Atividade02/Evidencia03_GetAllUsers.png)
+
+**Create Project**
+![CreateProject](docs/Atividade02/Evidencia04_CreateProject.png)
+
+**Get Project**
+![GetProject](docs/Atividade02/Evidencia05_GetProject.png)
+
+**Get All Projects**
+![GetProjects](docs/Atividade02/Evidencia06_GetAllProjects.png)
+
+**Create Task**
+![CreateTask](docs/Atividade02/Evidencia07_CreateTask.png)
+
+**Get Task**
+![GetTask](docs/Atividade02/Evidencia08_GetTask.png)
+
+**Get All Tasks**
+![GetTasks](docs/Atividade02/Evidencia09_GetAllTasks.png)
