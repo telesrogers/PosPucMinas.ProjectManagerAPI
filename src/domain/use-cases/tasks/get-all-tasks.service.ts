@@ -20,6 +20,11 @@ export class GetAllTasksService implements BaseUseCase {
     if (!tasks) {
       throw new Error('Erro ao listar tarefas');
     }
+
+    if (tasks.length === 0) {
+      throw new Error('Nenhuma tarefa encontrada');
+    }
+
     return tasks;
   }
 }
