@@ -20,6 +20,11 @@ export class GetAllProjectsService implements BaseUseCase {
     if (!projects) {
       throw new Error('Erro ao recuperar projetos');
     }
+
+    if (projects.length === 0) {
+      throw new Error('Nenhum projeto encontrado');
+    }
+
     return projects;
   }
 }
