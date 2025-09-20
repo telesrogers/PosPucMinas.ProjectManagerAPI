@@ -13,6 +13,10 @@ export class UsersRepositoryService
     super(UserEntity, dataSource.createEntityManager());
   }
 
+  findAll(): Promise<IUser[]> {
+    return this.find();
+  }
+
   findById(id: number): Promise<IUser | null> {
     return this.findOneBy({ id });
   }
