@@ -9,6 +9,7 @@ import { hash } from 'bcrypt';
 export class CreateUserService implements BaseUseCase {
   private readonly DEFAULT_SALT_ROUNDS = 10;
   constructor(private readonly usersRepository: UsersRepositoryService) {}
+
   async execute(user: CreateUserDto): Promise<IUser> {
     const hashedPassword = await hash(user.password, this.DEFAULT_SALT_ROUNDS);
     const createdUser = await this.usersRepository.add({

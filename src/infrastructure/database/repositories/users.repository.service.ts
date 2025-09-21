@@ -28,4 +28,11 @@ export class UsersRepositoryService
   add(payload: DeepPartial<IUser>): Promise<IUser> {
     return this.save(payload) as Promise<IUser>;
   }
+
+  updateById(payload: DeepPartial<IUser>) {
+    if (payload.id) {
+      return this.update(payload.id, { ...payload });
+    }
+    throw new Error('Payload inválido. Id não encontrado');
+  }
 }

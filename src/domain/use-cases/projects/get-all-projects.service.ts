@@ -11,7 +11,6 @@ export class GetAllProjectsService implements BaseUseCase {
     private readonly projectsRepository: ProjectsRepositoryService,
   ) {}
   async execute(userId: number): Promise<IProject[]> {
-    // fetch user data
     const userData = await this.usersRepository.findById(userId);
     if (!userData) {
       throw new Error('Usuário não encontrado');

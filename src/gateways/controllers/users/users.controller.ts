@@ -6,13 +6,16 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Req,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateUserService } from 'src/domain/use-cases/users/create-user.service';
 import { GetUserByIdService } from 'src/domain/use-cases/users/get-user-by-id.service';
 import { GetAllUsersService } from 'src/domain/use-cases/users/get-all-users.service';
+import { UpdateUserService } from 'src/domain/use-cases/users/update-user.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
 import { Public } from '../../guards/auth-guard.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
@@ -23,6 +26,7 @@ export class UsersController {
     private readonly getAllUsersUseCase: GetAllUsersService,
     private readonly getUserUseCase: GetUserByIdService,
     private readonly createUserUseCase: CreateUserService,
+    private readonly updateUserUseCase: UpdateUserService,
     @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
@@ -81,6 +85,20 @@ export class UsersController {
       }
     }
   }
-}
 
-//TODO: Add update
+  @Put(':id')
+  @Public()
+  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    try {
+      return await this.updateUserUseCase.execute({
+        user: { ...updateUserDto, id: +id },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new UnprocessableEntityException(error.message);
+      } else {
+        throw new UnprocessableEntityException(String(error));
+      }
+    }
+  }
+}

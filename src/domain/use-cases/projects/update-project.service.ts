@@ -1,32 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { BaseUseCase } from '../base-use-case';
 import { ProjectsRepositoryService } from 'src/infrastructure/database/repositories/projects.repository.service';
-import { CreateProjectDto } from 'src/gateways/controllers/projects/dtos/create-project.dto';
-import { IProject } from 'src/domain/interfaces/project.interface';
 import { UsersRepositoryService } from 'src/infrastructure/database/repositories/users.repository.service';
+import { UpdateProjectDto } from 'src/gateways/controllers/projects/dtos/update-project.dto';
+import { IProject } from 'src/domain/interfaces/project.interface';
 
 @Injectable()
-export class CreateProjectService implements BaseUseCase {
+export class UpdateProjectService implements BaseUseCase {
   constructor(
     private readonly usersRepository: UsersRepositoryService,
     private readonly projectsRepository: ProjectsRepositoryService,
   ) {}
+
   async execute(payload: {
-    project: CreateProjectDto;
+    project: UpdateProjectDto;
     userId: number;
   }): Promise<IProject> {
     const userData = await this.usersRepository.findById(payload.userId);
     if (!userData) {
       throw new Error('Usuário não encontrado');
     }
-    const createdProject = await this.projectsRepository.add({
+
+    await this.projectsRepository.updateById(payload.userId, {
+      id: payload.project.id,
       name: payload.project.name,
       description: payload.project.description,
       user: { id: userData.id },
     });
-    if (!createdProject) {
-      throw new Error('Erro ao criar projeto');
+
+    const updatedProject = await this.projectsRepository.findById(
+      payload.userId,
+      payload.project.id,
+    );
+
+    if (!updatedProject) {
+      throw new Error('Projeto não encontrado');
     }
-    return createdProject;
+
+    return updatedProject;
   }
 }

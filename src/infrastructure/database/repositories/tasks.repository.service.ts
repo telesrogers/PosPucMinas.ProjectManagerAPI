@@ -27,7 +27,11 @@ export class TasksRepositoryService
 
   updateById(userId: number, payload: DeepPartial<ITask>) {
     if (payload.id) {
-      return this.update(payload.id, { ...payload, user: { id: userId } });
+      return this.update(payload.id, {
+        ...payload,
+        user: { id: userId },
+        project: { id: payload.project?.id },
+      });
     }
 
     throw new Error('Payload inválido. Id não encontrado');

@@ -27,4 +27,11 @@ export class ProjectsRepositoryService
   add(payload: DeepPartial<IProject>): Promise<IProject> {
     return this.save(payload);
   }
+
+  updateById(userId: number, payload: DeepPartial<IProject>) {
+    if (payload.id) {
+      return this.update(payload.id, { ...payload, user: { id: userId } });
+    }
+    throw new Error('Payload inválido. Id não encontrado');
+  }
 }

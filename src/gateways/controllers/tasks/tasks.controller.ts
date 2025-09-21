@@ -6,13 +6,16 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Req,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateTaskService } from 'src/domain/use-cases/tasks/create-task.service';
 import { GetAllTasksService } from 'src/domain/use-cases/tasks/get-all-tasks.service';
 import { GetTaskByIdService } from 'src/domain/use-cases/tasks/get-task-by-id.service';
+import { UpdateTaskService } from 'src/domain/use-cases/tasks/update-task.service';
 import { CreateTaskDto } from './dtos/create-task.dto';
+import { UpdateTaskDto } from './dtos/update-task.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 
@@ -22,6 +25,7 @@ export class TasksController {
     private readonly getAllTasksUseCase: GetAllTasksService,
     private readonly getTaskByIdUseCase: GetTaskByIdService,
     private readonly createTaskUseCase: CreateTaskService,
+    private readonly updateTaskUseCase: UpdateTaskService,
     @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
@@ -89,6 +93,25 @@ export class TasksController {
       }
     }
   }
-}
 
-//TODO: Add update
+  @Put(':id')
+  async update(
+    @Req() request,
+    @Param('id') id: number,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    try {
+      const loggedUser = request.user;
+      return await this.updateTaskUseCase.execute({
+        userId: loggedUser.sub,
+        task: { ...updateTaskDto, id: +id },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new UnprocessableEntityException(error.message);
+      } else {
+        throw new UnprocessableEntityException(String(error));
+      }
+    }
+  }
+}

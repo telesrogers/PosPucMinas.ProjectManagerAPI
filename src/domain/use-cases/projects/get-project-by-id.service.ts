@@ -13,7 +13,6 @@ export class GetProjectByIdService {
     userId: number;
     projectId: number;
   }): Promise<IProject> {
-    // fetch user data
     const userData = await this.usersRepository.findById(payload.userId);
     if (!userData) {
       throw new Error('Usuário não encontrado');

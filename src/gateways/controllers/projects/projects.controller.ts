@@ -6,13 +6,16 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Req,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateProjectService } from 'src/domain/use-cases/projects/create-project.service';
 import { GetAllProjectsService } from 'src/domain/use-cases/projects/get-all-projects.service';
 import { GetProjectByIdService } from 'src/domain/use-cases/projects/get-project-by-id.service';
+import { UpdateProjectService } from 'src/domain/use-cases/projects/update-project.service';
 import { CreateProjectDto } from './dtos/create-project.dto';
+import { UpdateProjectDto } from './dtos/update-project.dto';
 import type { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
@@ -22,6 +25,7 @@ export class ProjectsController {
     private readonly getAllProjectsUseCase: GetAllProjectsService,
     private readonly getProjectByIdUseCase: GetProjectByIdService,
     private readonly createProjectUseCase: CreateProjectService,
+    private readonly updateProjectUseCase: UpdateProjectService,
     @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
@@ -88,6 +92,25 @@ export class ProjectsController {
       }
     }
   }
-}
 
-//TODO: Add update
+  @Put(':id')
+  async update(
+    @Req() request,
+    @Param('id') id: number,
+    @Body() updateProjectDto: UpdateProjectDto,
+  ) {
+    try {
+      const loggedUser = request.user;
+      return await this.updateProjectUseCase.execute({
+        userId: loggedUser.sub,
+        project: { ...updateProjectDto, id: +id },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new UnprocessableEntityException(error.message);
+      } else {
+        throw new UnprocessableEntityException(String(error));
+      }
+    }
+  }
+}

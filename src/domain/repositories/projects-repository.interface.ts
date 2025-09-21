@@ -5,4 +5,5 @@ export interface IProjectsRepository {
   findAll(userId: number): Promise<IProject[]>;
   findById(userId: number, id: number): Promise<IProject | null>;
   add(payload: DeepPartial<IProject>): Promise<IProject>;
+  updateById(userId: number, payload: DeepPartial<IProject>): Promise<any>;
 }
