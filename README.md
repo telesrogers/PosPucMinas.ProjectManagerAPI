@@ -63,31 +63,31 @@ Este projeto será subdividido em etapas, onde cada etapa será representada por
 **Login**
 ![Login](docs/Atividade03/Evidencia02_Login.png)
 
-**Save Token**
+**Set Bearer Token in Postman**
 ![Login](docs/Atividade03/Evidencia03_SetBearerToken.png)
 
-**Get User**
+**Get User — Authenticated**
 ![GetUser](docs/Atividade03/Evidencia04_GetUser.png)
 
-**Get All Users**
+**Get All Users — Authenticated**
 ![GetUsers](docs/Atividade03/Evidencia05_GetAllUsers.png)
 
-**Create Project**
+**Create Project — Authenticated**
 ![CreateProject](docs/Atividade03/Evidencia06_CreateProject.png)
 
-**Get Project**
+**Get Project — Authenticated**
 ![GetProject](docs/Atividade03/Evidencia07_GetProject.png)
 
-**Get All Projects**
+**Get All Projects — Authenticated**
 ![GetProjects](docs/Atividade03/Evidencia08_GetAllProjects.png)
 
-**Create Task**
+**Create Task — Authenticated**
 ![CreateTask](docs/Atividade03/Evidencia09_CreateTask.png)
 
-**Get Task**
+**Get Task — Authenticated**
 ![GetTask](docs/Atividade03/Evidencia10_GetTask.png)
 
-**Get All Tasks**
+**Get All Tasks — Authenticated**
 ![GetTasks](docs/Atividade03/Evidencia11_GetAllTasks.png)
 
 ### Database ###
