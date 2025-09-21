@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuardService } from '@project-manager-api/gateways/guards/auth-guard.service';
 
 describe('AuthGuardService', () => {
   let service: AuthGuardService;

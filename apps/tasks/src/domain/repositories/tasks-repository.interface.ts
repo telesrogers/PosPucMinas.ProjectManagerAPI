@@ -1,5 +1,5 @@
 import { DeepPartial, UpdateResult } from 'typeorm';
-import { ITask } from '../interfaces/task.interface';
+import { ITask } from '@tasks/domain/interfaces/task.interface';
 
 export interface ITasksRepository {
   findAll(userId: number): Promise<ITask[]>;

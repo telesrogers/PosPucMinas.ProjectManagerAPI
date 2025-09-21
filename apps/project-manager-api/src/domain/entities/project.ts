@@ -1,6 +1,6 @@
 import { IProject } from '../interfaces/project.interface';
-import { ITask } from '../interfaces/task.interface';
 import { IUser } from '../interfaces/user.interface';
+import { ITask } from '@tasks/domain/interfaces/task.interface';
 
 export class Project implements IProject {
   id: number;

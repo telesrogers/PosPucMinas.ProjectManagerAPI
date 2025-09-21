@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { GetAllProjectsService } from './get-all-projects.service';
-import { GetProjectByIdService } from './get-project-by-id.service';
-import { CreateProjectService } from './create-project.service';
-import { UpdateProjectService } from './update-project.service';
+import { GetAllProjectsService } from '@project-manager-api/domain/use-cases/projects/get-all-projects.service';
+import { GetProjectByIdService } from '@project-manager-api/domain/use-cases/projects/get-project-by-id.service';
+import { CreateProjectService } from '@project-manager-api/domain/use-cases/projects/create-project.service';
+import { UpdateProjectService } from '@project-manager-api/domain/use-cases/projects/update-project.service';
 import { DatabaseModule } from '@project-manager-api/infrastructure/database/database.module';
 
 @Module({

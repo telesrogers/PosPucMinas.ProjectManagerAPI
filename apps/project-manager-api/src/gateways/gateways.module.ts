@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ControllersModule } from './controllers/controllers.module';
-import { AuthGuardService } from './guards/auth-guard.service';
+import { ControllersModule } from '@project-manager-api/gateways/controllers/controllers.module';
+import { AuthGuardService } from '@project-manager-api/gateways/guards/auth-guard.service';
 
 @Module({
   imports: [ControllersModule],

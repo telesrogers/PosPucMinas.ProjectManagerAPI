@@ -12,23 +12,16 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ApiResponse, ApiOperation } from '@nestjs/swagger';
-import { CreateTaskService } from '@project-manager-api/domain/use-cases/tasks/create-task.service';
-import { GetAllTasksService } from '@project-manager-api/domain/use-cases/tasks/get-all-tasks.service';
-import { GetTaskByIdService } from '@project-manager-api/domain/use-cases/tasks/get-task-by-id.service';
-import { UpdateTaskService } from '@project-manager-api/domain/use-cases/tasks/update-task.service';
-import { CreateTaskDto } from './dtos/create-task.dto';
-import { UpdateTaskDto } from './dtos/update-task.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
+import { ClientProxy } from '@nestjs/microservices';
+import { CreateTaskDto } from '@tasks/gateways/controllers/tasks/dtos/create-task.dto';
+import { UpdateTaskDto } from '@tasks/gateways/controllers/tasks/dtos/update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
   constructor(
-    private readonly getAllTasksUseCase: GetAllTasksService,
-    private readonly getTaskByIdUseCase: GetTaskByIdService,
-    private readonly createTaskUseCase: CreateTaskService,
-    private readonly updateTaskUseCase: UpdateTaskService,
-    @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
+    @Inject('PROJECTS_MANAGER_API') private readonly redisClient: ClientProxy,
   ) {}
 
   @ApiOperation({ summary: 'Listar todas as tarefas' })
@@ -52,28 +45,13 @@ export class TasksController {
   async findAll(@Req() request) {
     try {
       const loggedUser = request.user;
-      const cacheKey = `user-${loggedUser.sub}/all-tasks`;
-
-      const cachedData = await this.cacheService.get<{ name: string }>(
-        cacheKey,
+      console.log('Disparando mensagem para Tasks');
+      return this.redisClient.send(
+        { cmd: 'get_tasks' },
+        { userId: loggedUser.sub },
       );
-
-      if (cachedData) {
-        console.log(`Getting tasks from cache!`);
-        return cachedData;
-      }
-
-      console.log(`Cache empty. Getting tasks from database!`);
-      const data = await this.getAllTasksUseCase.execute(loggedUser.sub);
-      await this.cacheService.set(cacheKey, data);
-
-      return data;
     } catch (error) {
-      if (error instanceof Error) {
-        throw new NotFoundException(error.message);
-      } else {
-        throw new NotFoundException(String(error));
-      }
+      throw new NotFoundException(error.message);
     }
   }
 
@@ -98,17 +76,15 @@ export class TasksController {
   async findOne(@Req() request, @Param('id') id: number) {
     try {
       const loggedUser = request.user;
-
-      return await this.getTaskByIdUseCase.execute({
-        userId: loggedUser.sub,
-        taskId: id,
-      });
+      return this.redisClient.send(
+        { cmd: 'get_task_by_id' },
+        {
+          userId: loggedUser.sub,
+          taskId: id,
+        },
+      );
     } catch (error) {
-      if (error instanceof Error) {
-        throw new NotFoundException(error.message);
-      } else {
-        throw new NotFoundException(String(error));
-      }
+      throw new NotFoundException(error.message);
     }
   }
 
@@ -133,17 +109,15 @@ export class TasksController {
   async create(@Req() request, @Body() createTaskDto: CreateTaskDto) {
     try {
       const loggedUser = request.user;
-
-      return await this.createTaskUseCase.execute({
-        userId: loggedUser.sub,
-        task: createTaskDto,
-      });
+      return this.redisClient.send(
+        { cmd: 'create_task' },
+        {
+          userId: loggedUser.sub,
+          task: createTaskDto,
+        },
+      );
     } catch (error) {
-      if (error instanceof Error) {
-        throw new UnprocessableEntityException(error.message);
-      } else {
-        throw new UnprocessableEntityException(String(error));
-      }
+      throw new UnprocessableEntityException(error.message);
     }
   }
 
@@ -172,16 +146,15 @@ export class TasksController {
   ) {
     try {
       const loggedUser = request.user;
-      return await this.updateTaskUseCase.execute({
-        userId: loggedUser.sub,
-        task: { ...updateTaskDto, id: +id },
-      });
+      return this.redisClient.send(
+        { cmd: 'update_task' },
+        {
+          userId: loggedUser.sub,
+          task: updateTaskDto,
+        },
+      );
     } catch (error) {
-      if (error instanceof Error) {
-        throw new UnprocessableEntityException(error.message);
-      } else {
-        throw new UnprocessableEntityException(String(error));
-      }
+      throw new UnprocessableEntityException(error.message);
     }
   }
 }

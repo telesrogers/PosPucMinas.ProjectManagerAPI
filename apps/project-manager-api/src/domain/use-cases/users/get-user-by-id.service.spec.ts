@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetUserByIdService } from './get-user-by-id.service';
+import { GetUserByIdService } from '@project-manager-api/domain/use-cases/users/get-user-by-id.service';
 
 describe('GetUserByIdService', () => {
   let service: GetUserByIdService;

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetAllProjectsService } from './get-all-projects.service';
+import { GetAllProjectsService } from '@project-manager-api/domain/use-cases/projects/get-all-projects.service';
 
 describe('GetAllProjectsService', () => {
   let service: GetAllProjectsService;

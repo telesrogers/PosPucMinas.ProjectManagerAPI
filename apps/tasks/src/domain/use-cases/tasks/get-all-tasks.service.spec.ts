@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetAllTasksService } from './get-all-tasks.service';
+import { GetAllTasksService } from '@tasks/domain/use-cases/tasks/get-all-tasks.service';
 
 describe('GetAllTasksService', () => {
   let service: GetAllTasksService;

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetUserByEmailService } from './get-user-by-email.service';
+import { GetUserByEmailService } from '@project-manager-api/domain/use-cases/users/get-user-by-email.service';
 
 describe('GetUserByEmailService', () => {
   let service: GetUserByEmailService;

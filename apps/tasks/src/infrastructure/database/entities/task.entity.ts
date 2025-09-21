@@ -1,5 +1,4 @@
 import type { IProject } from '@project-manager-api/domain/interfaces/project.interface';
-import type { ITask } from '@project-manager-api/domain/interfaces/task.interface';
 import type { IUser } from '@project-manager-api/domain/interfaces/user.interface';
 import {
   Column,
@@ -8,8 +7,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ProjectEntity } from './project.entity';
-import { UserEntity } from './user.entity';
+import { ITask } from '@tasks/domain/interfaces/task.interface';
+import { ProjectEntity } from '@project-manager-api/infrastructure/database/entities/project.entity';
+import { UserEntity } from '@project-manager-api/infrastructure/database/entities/user.entity';
 
 @Entity('tasks')
 export class TaskEntity implements ITask {

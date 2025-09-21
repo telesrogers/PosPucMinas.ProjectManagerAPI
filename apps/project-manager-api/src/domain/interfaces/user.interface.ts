@@ -1,5 +1,5 @@
-import { IProject } from './project.interface';
-import { ITask } from './task.interface';
+import { IProject } from '@project-manager-api/domain/interfaces/project.interface';
+import { ITask } from '@tasks/domain/interfaces/task.interface';
 
 export interface IUser {
   id: number;

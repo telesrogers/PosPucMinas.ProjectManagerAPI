@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetProjectByIdService } from './get-project-by-id.service';
+import { GetProjectByIdService } from '@project-manager-api/domain/use-cases/projects/get-project-by-id.service';
 
 describe('GetProjectByIdService', () => {
   let service: GetProjectByIdService;

@@ -15,8 +15,8 @@ import { CreateProjectService } from '@project-manager-api/domain/use-cases/proj
 import { GetAllProjectsService } from '@project-manager-api/domain/use-cases/projects/get-all-projects.service';
 import { GetProjectByIdService } from '@project-manager-api/domain/use-cases/projects/get-project-by-id.service';
 import { UpdateProjectService } from '@project-manager-api/domain/use-cases/projects/update-project.service';
-import { CreateProjectDto } from './dtos/create-project.dto';
-import { UpdateProjectDto } from './dtos/update-project.dto';
+import { CreateProjectDto } from '@project-manager-api/gateways/controllers/projects/dtos/create-project.dto';
+import { UpdateProjectDto } from '@project-manager-api/gateways/controllers/projects/dtos/update-project.dto';
 import type { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ApiResponse, ApiOperation } from '@nestjs/swagger';

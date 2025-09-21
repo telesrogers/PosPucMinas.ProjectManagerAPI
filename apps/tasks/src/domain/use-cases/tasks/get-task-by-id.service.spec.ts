@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetTaskByIdService } from './get-task-by-id.service';
+import { GetTaskByIdService } from '@tasks/domain/use-cases/tasks/get-task-by-id.service';
 
 describe('GetTaskByIdService', () => {
   let service: GetTaskByIdService;

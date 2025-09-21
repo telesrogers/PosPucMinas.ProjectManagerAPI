@@ -16,9 +16,9 @@ import { CreateUserService } from '@project-manager-api/domain/use-cases/users/c
 import { GetUserByIdService } from '@project-manager-api/domain/use-cases/users/get-user-by-id.service';
 import { GetAllUsersService } from '@project-manager-api/domain/use-cases/users/get-all-users.service';
 import { UpdateUserService } from '@project-manager-api/domain/use-cases/users/update-user.service';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
-import { Public } from '../../guards/auth-guard.service';
+import { CreateUserDto } from '@project-manager-api/gateways/controllers/users/dtos/create-user.dto';
+import { UpdateUserDto } from '@project-manager-api/gateways/controllers/users/dtos/update-user.dto';
+import { Public } from '@project-manager-api/gateways/guards/auth-guard.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 

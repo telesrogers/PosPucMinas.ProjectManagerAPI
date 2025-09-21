@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus } from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService } from '@project-manager-api/app.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller()

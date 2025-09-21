@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CreateUserService } from './create-user.service';
-import { GetUserByIdService } from './get-user-by-id.service';
+import { CreateUserService } from '@project-manager-api/domain/use-cases/users/create-user.service';
+import { GetUserByIdService } from '@project-manager-api/domain/use-cases/users/get-user-by-id.service';
 import { DatabaseModule } from '@project-manager-api/infrastructure/database/database.module';
-import { GetAllUsersService } from './get-all-users.service';
-import { GetUserByEmailService } from './get-user-by-email.service';
-import { UpdateUserService } from './update-user.service';
+import { GetAllUsersService } from '@project-manager-api/domain/use-cases/users/get-all-users.service';
+import { GetUserByEmailService } from '@project-manager-api/domain/use-cases/users/get-user-by-email.service';
+import { UpdateUserService } from '@project-manager-api/domain/use-cases/users/update-user.service';
 
 @Module({
   imports: [DatabaseModule],
