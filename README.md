@@ -55,3 +55,48 @@ Este projeto será subdividido em etapas, onde cada etapa será representada por
 
 **Get All Tasks**
 ![GetTasks](docs/Atividade02/Evidencia09_GetAllTasks.png)
+
+### Autenticação ###
+**Create User**
+![CreateUserAuth](docs/Atividade03/Evidencia01_CreateUser.png)
+
+**Login**
+![Login](docs/Atividade03/Evidencia02_Login.png)
+
+**Save Token**
+![Login](docs/Atividade03/Evidencia03_SetBearerToken.png)
+
+**Get User**
+![GetUser](docs/Atividade03/Evidencia04_GetUser.png)
+
+**Get All Users**
+![GetUsers](docs/Atividade03/Evidencia05_GetAllUsers.png)
+
+**Create Project**
+![CreateProject](docs/Atividade03/Evidencia06_CreateProject.png)
+
+**Get Project**
+![GetProject](docs/Atividade03/Evidencia07_GetProject.png)
+
+**Get All Projects**
+![GetProjects](docs/Atividade03/Evidencia08_GetAllProjects.png)
+
+**Create Task**
+![CreateTask](docs/Atividade03/Evidencia09_CreateTask.png)
+
+**Get Task**
+![GetTask](docs/Atividade03/Evidencia10_GetTask.png)
+
+**Get All Tasks**
+![GetTasks](docs/Atividade03/Evidencia11_GetAllTasks.png)
+
+### Database ###
+
+**Users**
+![Database](docs/Atividade03/Evidencia12_Database_Users.png)
+
+**Projects**
+![Database](docs/Atividade03/Evidencia13_Database_Projects.png)
+
+**Tasks**
+![Database](docs/Atividade03/Evidencia14_Database_Tasks.png)
