@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Inject,
   NotFoundException,
   Param,
@@ -18,6 +19,7 @@ import { CreateProjectDto } from './dtos/create-project.dto';
 import { UpdateProjectDto } from './dtos/update-project.dto';
 import type { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('projects')
 export class ProjectsController {
@@ -29,6 +31,22 @@ export class ProjectsController {
     @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Retorna todos os projetos',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Nenhum projeto encontrado',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Get()
   async findAll(@Req() request) {
     try {
