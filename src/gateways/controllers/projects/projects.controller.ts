@@ -19,7 +19,7 @@ import { CreateProjectDto } from './dtos/create-project.dto';
 import { UpdateProjectDto } from './dtos/update-project.dto';
 import type { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('projects')
 export class ProjectsController {
@@ -31,6 +31,7 @@ export class ProjectsController {
     @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
+  @ApiOperation({ summary: 'Listar todos os projetos' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Retorna todos os projetos',
@@ -76,6 +77,23 @@ export class ProjectsController {
     }
   }
 
+  @ApiOperation({ summary: 'Obter projeto por ID' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Retorna um projeto pelo ID',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Projeto não encontrado',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Get(':id')
   async findOne(@Req() request, @Param('id') id: number) {
     try {
@@ -93,6 +111,23 @@ export class ProjectsController {
     }
   }
 
+  @ApiOperation({ summary: 'Criar projeto' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Projeto criado com sucesso',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: 'Não foi possível processar a solicitação',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Post()
   async create(@Req() request, @Body() createProjectDto: CreateProjectDto) {
     try {
@@ -111,6 +146,23 @@ export class ProjectsController {
     }
   }
 
+  @ApiOperation({ summary: 'Atualizar projeto' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Projeto atualizado com sucesso',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: 'Não foi possível processar a solicitação',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Put(':id')
   async update(
     @Req() request,

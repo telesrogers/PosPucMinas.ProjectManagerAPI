@@ -13,6 +13,14 @@ export class AuthController {
     status: HttpStatus.OK,
     description: 'Login realizado com sucesso',
   })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Credenciais inválidas ou não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @HttpCode(HttpStatus.OK)
   @Post('login')
   @Public()

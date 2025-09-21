@@ -9,7 +9,9 @@ import {
   Put,
   Req,
   UnprocessableEntityException,
+  HttpStatus,
 } from '@nestjs/common';
+import { ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { CreateTaskService } from 'src/domain/use-cases/tasks/create-task.service';
 import { GetAllTasksService } from 'src/domain/use-cases/tasks/get-all-tasks.service';
 import { GetTaskByIdService } from 'src/domain/use-cases/tasks/get-task-by-id.service';
@@ -29,6 +31,23 @@ export class TasksController {
     @Inject(CACHE_MANAGER) private readonly cacheService: Cache,
   ) {}
 
+  @ApiOperation({ summary: 'Listar todas as tarefas' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Retorna todas as tarefas',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Nenhuma tarefa encontrada',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Get()
   async findAll(@Req() request) {
     try {
@@ -58,6 +77,23 @@ export class TasksController {
     }
   }
 
+  @ApiOperation({ summary: 'Obter tarefa por ID' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Retorna uma tarefa pelo ID',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Tarefa não encontrada',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Get(':id')
   async findOne(@Req() request, @Param('id') id: number) {
     try {
@@ -76,6 +112,23 @@ export class TasksController {
     }
   }
 
+  @ApiOperation({ summary: 'Criar tarefa' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Tarefa criada com sucesso',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: 'Não foi possível processar a solicitação',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Post()
   async create(@Req() request, @Body() createTaskDto: CreateTaskDto) {
     try {
@@ -94,6 +147,23 @@ export class TasksController {
     }
   }
 
+  @ApiOperation({ summary: 'Atualizar tarefa' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Tarefa atualizada com sucesso',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: 'Não foi possível processar a solicitação',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Não autorizado',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno do servidor',
+  })
   @Put(':id')
   async update(
     @Req() request,
