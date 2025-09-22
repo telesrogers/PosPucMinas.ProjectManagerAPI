@@ -23,6 +23,8 @@ Este projeto será subdividido em etapas, onde cada etapa será representada por
 
 ### Evidências de Testes ###
 
+[Collection do Postman](docs/ProjectManagerAPI.postman_collection.json)
+
 **Estrutura do projeto** 
 ![Estrutura do projeto](docs/Atividade01/Evidencia01_ProjectStructure.png)
 
