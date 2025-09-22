@@ -100,3 +100,24 @@ Este projeto será subdividido em etapas, onde cada etapa será representada por
 
 **Tasks**
 ![Database](docs/Atividade03/Evidencia14_Database_Tasks.png)
+
+### Comunicação entre micro serviços com Redis ###
+
+**Create Task**
+![Create Task Postman](docs/Atividade04/Evidencia01_CreateTask_Postman.png)
+![Create Task Log](docs/Atividade04/Evidencia02_CreateTask_Log.png)
+
+**Update Task**
+![Update Task Postman](docs/Atividade04/Evidencia03_UpdateTask_Postman.png)
+![Update Task Log](docs/Atividade04/Evidencia04_UpdateTask_Log.png)
+
+**Get Task**
+![Get Task Postman](docs/Atividade04/Evidencia05_GetTask_Postman.png)
+![Get Task Log](docs/Atividade04/Evidencia06_GetTask_Log.png)
+
+**Get All Tasks**
+![Get All Tasks Postman](docs/Atividade04/Evidencia07_GetAllTasks_Postman.png)
+![Get All Tasks Log](docs/Atividade04/Evidencia08_GetAllTasks_Log.png)
+
+**Redis**
+![Redis](docs/Atividade04/Evidencia09_Redis_Running.png)
