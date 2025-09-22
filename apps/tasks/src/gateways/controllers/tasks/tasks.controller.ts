@@ -23,7 +23,7 @@ export class TasksController {
   @MessagePattern({ cmd: 'get_tasks' })
   async findAll(@Payload() data: { userId: number }) {
     try {
-      console.log('recebendo mensagens em task');
+      console.log('Recebendo mensagem get_tasks em Tasks');
       return await this.getAllTasksUseCase.execute({ userId: data.userId });
     } catch (error) {
       throw new NotFoundException(error.message);
@@ -33,6 +33,7 @@ export class TasksController {
   @MessagePattern({ cmd: 'get_task_by_id' })
   async findOne(@Payload() data: { userId: number; taskId: number }) {
     try {
+      console.log('Recebendo mensagem get_task_by_id em Tasks');
       return await this.getTaskByIdUseCase.execute({
         userId: data.userId,
         taskId: data.taskId,
@@ -45,6 +46,7 @@ export class TasksController {
   @MessagePattern({ cmd: 'create_task' })
   async create(@Payload() data: { task: CreateTaskDto; userId: number }) {
     try {
+      console.log('Recebendo mensagem create_task em Tasks');
       return await this.createTaskUseCase.execute({
         userId: data.userId,
         task: data.task,
@@ -57,6 +59,7 @@ export class TasksController {
   @MessagePattern({ cmd: 'update_task' })
   async update(@Payload() data: { task: UpdateTaskDto; userId: number }) {
     try {
+      console.log('Recebendo mensagem update_task em Tasks');
       return await this.updateTaskUseCase.execute({
         userId: data.userId,
         task: data.task,

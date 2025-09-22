@@ -12,7 +12,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     UseCasesModule,
     AuthModule,
     ClientsModule.register([
-      { name: 'PROJECTS_MANAGER_API', transport: Transport.REDIS },
+      {
+        name: 'PROJECTS_MANAGER_API',
+        transport: Transport.REDIS,
+        options: {
+          host: 'localhost',
+          port: 6379,
+        },
+      },
     ]),
   ],
   controllers: [

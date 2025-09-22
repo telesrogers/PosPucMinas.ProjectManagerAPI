@@ -45,7 +45,7 @@ export class TasksController {
   async findAll(@Req() request) {
     try {
       const loggedUser = request.user;
-      console.log('Disparando mensagem para Tasks');
+      console.log('Disparando mensagem get_tasks para Tasks');
       return this.redisClient.send(
         { cmd: 'get_tasks' },
         { userId: loggedUser.sub },
@@ -76,6 +76,7 @@ export class TasksController {
   async findOne(@Req() request, @Param('id') id: number) {
     try {
       const loggedUser = request.user;
+      console.log('Disparando mensagem get_task_by_id para Tasks');
       return this.redisClient.send(
         { cmd: 'get_task_by_id' },
         {
@@ -109,6 +110,7 @@ export class TasksController {
   async create(@Req() request, @Body() createTaskDto: CreateTaskDto) {
     try {
       const loggedUser = request.user;
+      console.log('Disparando mensagem create_task para Tasks');
       return this.redisClient.send(
         { cmd: 'create_task' },
         {
@@ -146,6 +148,7 @@ export class TasksController {
   ) {
     try {
       const loggedUser = request.user;
+      console.log('Disparando mensagem update_task para Tasks');
       return this.redisClient.send(
         { cmd: 'update_task' },
         {
